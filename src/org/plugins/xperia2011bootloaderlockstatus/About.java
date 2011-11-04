@@ -24,7 +24,7 @@ public class About extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	public static final String version = "1.0";
 	public static final String msg1 = "Bootloader Lock Status Checker (for Xperia 2011 devices)";
-	public static final String msg2 = "By DooMLoRD";
+	public static final String msg2 = "by DooMLoRD";
 
 
 	/**

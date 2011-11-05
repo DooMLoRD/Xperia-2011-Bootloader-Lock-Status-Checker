@@ -11,13 +11,5 @@
             <fileset dir="./bin"/>
         </jar>
     	<copy file="./feature.properties" todir="G:\Deploy\FlashTool\custom\features\Xperia2011BootloaderLockStatus"/>
-		<copy todir="G:\Deploy\FlashTool\custom\features\Xperia2011BootloaderLockStatus\files">
-			  <fileset dir="./files"
-			           excludes="**/.svn"/>
-		</copy>
-		<copy todir="G:\Deploy\FlashTool\custom\features\Xperia2011BootloaderLockStatus\shells">
-			  <fileset dir="./shells"
-			           excludes="**/.svn"/>
-		</copy>
     </target>
 </project>

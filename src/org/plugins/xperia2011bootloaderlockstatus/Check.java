@@ -28,7 +28,7 @@ public class Check extends PluginDefaults implements org.plugins.PluginInterface
 				MyLogger.debug("hook2 returned: " + hook);
 				String[] hookarray = hook.split(";");
 				
-				String bootloaderStatus = "UNLOCKABLE";
+				String bootloaderStatus = "ERROR";
 				
 				for (int i = 0; i < hookarray.length; i++)
 				{
@@ -38,11 +38,22 @@ public class Check extends PluginDefaults implements org.plugins.PluginInterface
 						MyLogger.debug("FOUND ROOTING_STATUS");
 						String propertyValue = hookarray[i].split("=")[1].replace("\"", "");
 						if(propertyValue.equals("ROOTED")){
+							// bootloader IS already unlocked the OFFICIALLY way  
 							bootloaderStatus = "UNLOCKED";
 							MyLogger.debug("bootloaderStatus: " + bootloaderStatus);
 						}
 						if(propertyValue.equals("ROOTABLE")){
+							// bootloader CAN BE unlocked the OFFICIALLY way
+							// OR 
+							// this can also happen if bootloader was unlocked the UNOFFICIALLY
+							// way in which case we need to further implement code to check if its
+							// unlocked the UNOFFICIAL way 
 							bootloaderStatus = "LOCKED";
+							MyLogger.debug("bootloaderStatus: " + bootloaderStatus);
+						}
+						if(propertyValue.equals("UNROOTABLE")){
+							// bootloader CANNOT be unlocked the OFFICIALLY way  
+							bootloaderStatus = "UNLOCKABLE";
 							MyLogger.debug("bootloaderStatus: " + bootloaderStatus);
 						}						
 						break;

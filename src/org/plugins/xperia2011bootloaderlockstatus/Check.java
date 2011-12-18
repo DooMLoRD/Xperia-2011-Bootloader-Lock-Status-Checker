@@ -21,10 +21,9 @@ public class Check extends PluginDefaults implements org.plugins.PluginInterface
 		try {
 			Bundle bundle = new Bundle();
 			bundle.setSimulate(GlobalConfig.getProperty("simulate").toLowerCase().equals("yes"));
-			if (!OS.getName().equals("windows")) bundle.setSimulate(true);
 			X10flash flash = new X10flash(bundle);
 			if ((new WaitDeviceFlashmodeGUI(flash)).deviceFound(FlasherGUI._root)) {
-				String hook = flash.getHook2(); //grab the long return string from loader [CMD01] 
+				String hook = flash.getLoaderIdent(); //grab the long return string from loader [CMD01]
 				MyLogger.debug("hook2 returned: " + hook);
 				String[] hookarray = hook.split(";");
 				

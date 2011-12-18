@@ -24,7 +24,7 @@ public class Check extends PluginDefaults implements org.plugins.PluginInterface
 			X10flash flash = new X10flash(bundle);
 			if ((new WaitDeviceFlashmodeGUI(flash)).deviceFound(FlasherGUI._root)) {
 				String hook = flash.getLoaderIdent(); //grab the long return string from loader [CMD01]
-				MyLogger.debug("hook2 returned: " + hook);
+				MyLogger.getLogger().debug("hook2 returned: " + hook);
 				String[] hookarray = hook.split(";");
 				
 				String bootloaderStatus = "ERROR";
@@ -34,12 +34,12 @@ public class Check extends PluginDefaults implements org.plugins.PluginInterface
 					String propertyName = hookarray[i].split("=")[0];
 				
 					if(propertyName.equals("ROOTING_STATUS")){
-						MyLogger.debug("FOUND ROOTING_STATUS");
+						MyLogger.getLogger().debug("FOUND ROOTING_STATUS");
 						String propertyValue = hookarray[i].split("=")[1].replace("\"", "");
 						if(propertyValue.equals("ROOTED")){
 							// bootloader IS already unlocked the OFFICIALLY way  
 							bootloaderStatus = "UNLOCKED";
-							MyLogger.debug("bootloaderStatus: " + bootloaderStatus);
+							MyLogger.getLogger().debug("bootloaderStatus: " + bootloaderStatus);
 						}
 						if(propertyValue.equals("ROOTABLE")){
 							// bootloader CAN BE unlocked the OFFICIALLY way
@@ -48,12 +48,12 @@ public class Check extends PluginDefaults implements org.plugins.PluginInterface
 							// way in which case we need to further implement code to check if its
 							// unlocked the UNOFFICIAL way 
 							bootloaderStatus = "LOCKED";
-							MyLogger.debug("bootloaderStatus: " + bootloaderStatus);
+							MyLogger.getLogger().debug("bootloaderStatus: " + bootloaderStatus);
 						}
 						if(propertyValue.equals("UNROOTABLE")){
 							// bootloader CANNOT be unlocked the OFFICIALLY way  
 							bootloaderStatus = "UNLOCKABLE";
-							MyLogger.debug("bootloaderStatus: " + bootloaderStatus);
+							MyLogger.getLogger().debug("bootloaderStatus: " + bootloaderStatus);
 						}						
 						break;
 					}
@@ -69,27 +69,27 @@ public class Check extends PluginDefaults implements org.plugins.PluginInterface
 		}
 		catch (Exception e) {
 			MyLogger.initProgress(0);
-			MyLogger.error(e.getMessage());
+			MyLogger.getLogger().error(e.getMessage());
 			return "ERROR";
 		}
 	}
 
 	public void run() throws Exception {
 		try {
-			MyLogger.debug("Working directory : " + _workdir);
+			MyLogger.getLogger().debug("Working directory : " + _workdir);
 			String currentCert = getPhoneCert();
-			MyLogger.debug("GETCERT RETURNED: " + currentCert);
+			MyLogger.getLogger().debug("GETCERT RETURNED: " + currentCert);
 			
 			if(currentCert.equals("ERROR")){
-				MyLogger.error("Unable to determine bootloader lock status");
+				MyLogger.getLogger().error("Unable to determine bootloader lock status");
 			}
 			else{
-				MyLogger.info("BOOTLOADER STATUS: " + currentCert);
+				MyLogger.getLogger().info("BOOTLOADER STATUS: " + currentCert);
 			}
 			
 		}
 		catch (Exception e) {
-			MyLogger.error(e.getMessage());
+			MyLogger.getLogger().error(e.getMessage());
 		}
 	}
 
